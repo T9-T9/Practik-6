@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Успешно! | MVC E-commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container fade-in"
+        style="display: flex; align-items: center; justify-content: center; min-height: 80vh;">
+        <div class="card" style="text-align: center; padding: 60px 40px; border: 1px solid #34c759;">
+            <div style="font-size: 60px; margin-bottom: 20px;">✅</div>
+            <h1 style="margin-bottom: 10px;">Успешно!</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 18px;">
+                <%= message || 'Операция выполнена успешно.' %>
+            </p>
+
+            <% if (typeof details !=='undefined' ) { %>
+                <div
+                    style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 12px; margin-bottom: 30px; text-align: left;">
+                    <% for (const [key, value] of Object.entries(details)) { %>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span style="color: var(--text-secondary);">
+                                <%= key %>:
+                            </span>
+                            <span style="font-weight: 500;">
+                                <%= value %>
+                            </span>
+                        </div>
+                        <% } %>
+                </div>
+                <% } %>
+
+                    <a href="/products" class="btn">Вернуться в Каталог</a>
+        </div>
+    </div>
+</body>
+
+</html>

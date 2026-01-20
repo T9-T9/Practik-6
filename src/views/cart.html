@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина | MVC E-commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container fade-in">
+        <div class="nav">
+            <a href="/users" class="nav-link">Пользователи</a>
+            <a href="/products" class="nav-link">Товары</a>
+            <a href="/cart" class="nav-link active">Корзина</a>
+            <a href="/admin/report" class="nav-link">Отчеты</a>
+        </div>
+
+        <h1>Ваша Корзина</h1>
+
+        <div class="card">
+            <% if (cart && cart.length> 0) { %>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                                <th>Сумма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% let total=0; %>
+                                <% cart.forEach(item=> { %>
+                                    <% if(item.product) { const subtotal=item.product.price * item.quantity; total
+                                        +=subtotal; %>
+                                        <tr>
+                                            <td>
+                                                <%= item.product.name %>
+                                            </td>
+                                            <td>$<%= item.product.price %>
+                                            </td>
+                                            <td>
+                                                <%= item.quantity %>
+                                            </td>
+                                            <td>$<%= subtotal %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% }) %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" style="text-align: right; font-weight: 600;">Итого:</td>
+                                <td style="font-weight: 600; font-size: 18px;">$<%= total %>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div style="margin-top: 30px; text-align: right;">
+                    <form action="/cart/checkout" method="POST">
+                        <button type="submit" class="btn">Оформить заказ на $<%= total %></button>
+                    </form>
+                </div>
+                <% } else { %>
+                    <div style="text-align: center; padding: 40px;">
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Ваша корзина пуста.</p>
+                        <a href="/products" class="btn">Перейти в каталог</a>
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+</body>
+html>

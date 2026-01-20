@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчеты | MVC E-commerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .metric-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 600;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container fade-in">
+        <div class="nav">
+            <a href="/users" class="nav-link">Пользователи</a>
+            <a href="/products" class="nav-link">Товары</a>
+            <a href="/admin/report" class="nav-link active">Отчеты</a>
+        </div>
+
+        <h1>Генерация Отчета</h1>
+        <p style="color: var(--text-secondary); margin-bottom: 30px;">
+            Демонстрация паттерна <strong>Producer-Consumer (Производитель-Потребитель)</strong>.
+            Тяжелые вычисления выполняются в отдельном потоке (Worker Thread), не блокируя основной интерфейс.
+        </p>
+
+        <div class="card">
+            <h2>Результат Генерации</h2>
+            <div id="loading" style="display: none; text-align: center; padding: 40px;">
+                <div style="font-size: 14px; color: var(--text-secondary);">Выполняются вычисления...</div>
+            </div>
+
+            <div id="report-content">
+                <% if (typeof report !=='undefined' && report) { %>
+                    <div class="metric-card">
+                        <span class="metric-label">ID Отчета</span>
+                        <span class="metric-value">
+                            <%= report.reportId %>
+                        </span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Всего Продаж</span>
+                        <span class="metric-value">
+                            <%= report.totalSales %>
+                        </span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Время выполнения</span>
+                        <span class="metric-value">
+                            <%= report.duration %>
+                        </span>
+                    </div>
+                    <div style="margin-top: 20px; font-size: 12px; color: var(--text-secondary); text-align: center;">
+                        Сгенерировано: <%= new Date(report.generatedAt).toLocaleString('ru-RU') %>
+                    </div>
+                    <% } else { %>
+                        <div style="padding: 40px; text-align: center;">
+                            <p style="margin-bottom: 20px;">Нажмите кнопку ниже, чтобы запустить Worker Thread.</p>
+                            <a href="/admin/report?generate=true" class="btn">Сгенерировать Отчет</a>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
